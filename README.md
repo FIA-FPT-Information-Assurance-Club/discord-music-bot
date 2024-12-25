@@ -99,3 +99,23 @@ python3 -m pip install -r requirements.txt
 > [!TIP]
 > Hành động này sẽ tạo ra một tệp `credentials.json` trong thư mục chứa bot. Nếu gặp vấn đề trong lúc đăng nhập, hãy thử tạo nó ơ bên ngoài bằng máy của mình và thêm nó vào.
 - Hoàn tất và tận hưởng !
+
+<h2> Ảnh minh họa </h2>
+<div align="center">
+  <img src="img/ex.png">
+  <p>Tự động gửi link record cho người dùng khi yêu cầu,</p>
+  <img src="img/ex2.png">
+  <p>đồng thời gửi thông báo cho quản trị viên để quản lý số thành viên yêu cầu record</p>
+  <img src="img/ex3.png">
+  <p>Tính năng chatbot giải đáp thắc mắc của người dùng</p>
+  <img src="img/ex4.png">
+  <p>Phát nhạc chill chill<p>
+  <img src="img/ex5.png">
+  <p>Xem được hàng chờ hiện tại,</p>
+  <img src="img/ex6.png">
+  <p>và biết luôn lời bài hát hiện tại để hát karaoke<p>
+  <img src="img/ex7.png">
+  <p>Không biết lệnh đó để làm gì? Có trang trợ giúp luôn</p>
+  <img src="img/ex8.png">
+  <p>Bạn là wibu, có luôn tính năng tìm ảnh wibu luôn :)) </p>
+</div>
