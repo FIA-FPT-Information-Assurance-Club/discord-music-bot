@@ -1,0 +1,21 @@
+py-cord >= 2.6.0
+spotipy>=2.11.0
+git+https://github.com/Shewiiii/librespot-python
+requests
+python-dotenv
+yt-dlp
+openai
+bs4
+imageio
+PyNaCl
+mutagen
+typing-extensions
+youtube-transcript-api
+yt-dlp[default] --pre
+google-generativeai
+setuptools
+pytz
+pinecone[grpc]
+deemix
+pandas
+httpx
