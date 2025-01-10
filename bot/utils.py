@@ -7,14 +7,16 @@ import hashlib
 import logging
 import os
 import re
+import aiohttp
+import mutagen
+import httpx
+
+from dotenv import load_dotenv
 from collections import Counter
 from io import BytesIO
 from pathlib import Path
 from time import time
 from urllib.parse import urlparse, parse_qs
-
-import aiohttp
-import mutagen
 from PIL import Image
 from mutagen.flac import FLAC
 from mutagen.flac import Picture
@@ -26,8 +28,12 @@ from mutagen.oggopus import OggOpus
 from mutagen.oggvorbis import OggVorbis
 from mutagen.wave import WAVE
 
-from config import TEMP_FOLDER, CACHE_EXPIRY, CACHE_SIZE
 logger = logging.getLogger(__name__)
+
+load_dotenv('.env')
+TEMP_FOLDER = Path('.')/os.getenv('TEMP_FOLDER')
+CACHE_EXPIRY = int(os.getenv('CACHE_EXPIRY'))
+CACHE_SIZE = int(os.getenv('CACHE_SIZE'))
 
 
 def extract_number(string: str) -> Optional[str]:
@@ -427,3 +433,36 @@ async def send_response(
             f"Failed to send response for guild {guild_id}. "
             "Invalid Webhook Token."
         )
+        
+async def tag_flac_file(
+    file_path: Union[Path, str],
+    title: str = '',
+    artist: str = '',
+    album_cover_url: str = '',
+    album: str = '',
+    date: str = '',
+    width: int = 1000,
+    height: int = 1000,
+) -> None:
+    audio = FLAC(file_path)
+
+    picture = Picture()
+    picture.type = 3  # Front Cover
+    picture.width = width
+    picture.height = height
+    picture.mime = 'image/jpeg'
+    picture.desc = 'Cover'
+    if album_cover_url:
+        async with httpx.AsyncClient(follow_redirects=True) as session:
+            response = await session.get(album_cover_url)
+            response.raise_for_status()
+            cover_bytes = response.content
+        picture.data = cover_bytes
+
+    audio['title'] = title
+    audio['artist'] = artist
+    audio['album'] = album
+    audio['date'] = date
+
+    audio.add_picture(picture)
+    audio.save(file_path)

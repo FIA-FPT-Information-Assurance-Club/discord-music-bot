@@ -1,24 +1,26 @@
-from typing import Optional
-
-from bot.vocal.types import CoverData
-from config import CACHE_EXPIRY, TEMP_FOLDER, DEFAULT_EMBED_COLOR
 import discord
-
-from dotenv import load_dotenv
-from pathlib import Path
-from time import time
 import hashlib
 import logging
 import aiohttp
 import json
 import os
 
+from typing import Optional
+from bot.vocal.types import CoverData
+from dotenv import load_dotenv
+from pathlib import Path
+from time import time
 from bot.utils import cleanup_cache, get_cache_path, get_accent_color
 
 
 logger = logging.getLogger(__name__)
-load_dotenv()
+load_dotenv('.env')
+
+
 IMGUR_CLIENT_ID = os.getenv('IMGUR_CLIENT_ID')
+CACHE_EXPIRY = int(os.getenv('CACHE_EXPIRY'))
+TEMP_FOLDER = Path('.')/os.getenv('TEMP_FOLDER')
+DEFAULT_EMBED_COLOR = tuple(os.getenv('DEFAULT_EMBED_COLOR'))
 
 
 async def upload_cover(cover_bytes: bytes) -> Optional[CoverData]:

@@ -1,4 +1,3 @@
-import logging
 from bot.utils import send_response
 from typing import Optional
 

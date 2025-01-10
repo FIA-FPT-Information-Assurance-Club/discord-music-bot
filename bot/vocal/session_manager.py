@@ -1,5 +1,4 @@
 import logging
-
 import discord
 
 from typing import Optional
@@ -7,7 +6,6 @@ from bot.vocal.onsei import Onsei
 from bot.vocal.server_session import ServerSession
 
 onsei = Onsei()
-
 logger = logging.getLogger(__name__)
 
 class SessionManager:

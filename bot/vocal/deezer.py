@@ -1,11 +1,12 @@
 
 import os
 import asyncio
-from typing import Optional
 import logging
+
+from dotenv import load_dotenv
+from typing import Optional
 from requests import get, Response
 from pathlib import Path
-
 from spotipy import Spotify, SpotifyClientCredentials
 from deezer import Deezer
 from deezer.errors import DataException
@@ -13,15 +14,14 @@ from deemix import parseLink
 from deemix.utils.crypto import generateBlowfishKey, decryptChunk
 from deemix.utils import USER_AGENT_HEADER
 from deemix.plugins.spotify import Spotify as Spplugin
-
-from config import SPOTIFY_API_ENABLED
 from bot.search import is_url
 from bot.utils import get_cache_path
 
+load_dotenv('.env')
 SPOTIPY_CLIENT_ID = os.getenv('SPOTIPY_CLIENT_ID')
 SPOTIPY_CLIENT_SECRET = os.getenv('SPOTIPY_CLIENT_SECRET')
 DEEZER_ARL = os.getenv('DEEZER_ARL')
-
+SPOTIFY_API_ENABLED = bool(os.getenv('SPOTIFY_API_ENABLED'))
 
 class DeezerChunkedInputStream:
     """track: {'track_id': int, 'stream_url': str}"""

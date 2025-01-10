@@ -1,14 +1,20 @@
-from typing import Optional
-
-from discord.ext import commands
 import discord
+import os
 
+from dotenv import load_dotenv
+from typing import Optional
+from discord.ext import commands
 from bot.vocal.session_manager import session_manager as sm
 from bot.vocal.server_session import ServerSession
 from bot.vocal.audio_source_handlers import play_spotify, play_custom, play_onsei, play_youtube
 from bot.utils import is_onsei, send_response
 from bot.search import is_url
-from config import SPOTIFY_ENABLED, DEFAULT_STREAMING_SERVICE, DEEZER_ENABLED, SPOTIFY_API_ENABLED
+
+load_dotenv('.env')
+SPOTIFY_ENABLED = bool(os.getenv('SPOTIFY_ENABLED'))
+DEEZER_ENABLED = bool(os.getenv('DEEZER_ENABLED'))
+SPOTIFY_API_ENABLED = bool(os.getenv('SPOTIFY_API_ENABLED'))
+DEFAULT_STREAMING_SERVICE = os.getenv('DEFAULT_STREAMING_SERVICE')
 
 
 class Play(commands.Cog):

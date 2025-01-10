@@ -1,29 +1,42 @@
 import discord
+import os
+
+from dotenv import load_dotenv
 from discord.ext import commands
 
-# Danh sách đầy đủ: https://docs.google.com/spreadsheets/d/1nqn9kcO2LbQ6BacGJDaFbIAkA6jvT0HV3kM7ZRiqoow
+
+load_dotenv('.env')
+CHATBOT_ENABLED = bool(os.getenv('CHATBOT_ENABLED'))
+SPOTIFY_ENABLED = bool(os.getenv('SPOTIFY_ENABLED'))
+
 
 class HelpDropdown(discord.ui.Select):
     def __init__(self):
-        # Các tùy chọn của dropdown với emoji
-        options = [
-            discord.SelectOption(
-                label="Music Bot",
-                description="Các tính năng liên quan đến nhạc",
-                emoji="🎵"
-            ),
-            discord.SelectOption(
-                label="Chatbot / LLM",
-                description="Các tính năng liên quan đến chatbot",
-                emoji="💬"
-            ),
+        
+        options = [ #base options
             discord.SelectOption(
                 label="Khác",
                 description="Các tính năng khác",
                 emoji="🌀"
             )
         ]
-
+        
+        if SPOTIFY_ENABLED:
+            options.insert(0,
+                discord.SelectOption(
+                    label="Music Bot",
+                    description="Bot nghe nhạc",
+                    emoji="🎵"
+                )
+            )
+        if CHATBOT_ENABLED:
+            options.insert(1,
+                discord.SelectOption(
+                    label="Chatbot / LLM",
+                    description="Chatbot / LLM",
+                    emoji="🤖"
+                )
+            )
         super().__init__(
             placeholder="Chọn một danh mục...",
             min_values=1,

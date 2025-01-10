@@ -1,15 +1,16 @@
 import asyncio
 import os
 import logging
-
 import discord
+
+from dotenv import load_dotenv
 from discord.ext import commands
 from librespot.audio.decoders import AudioQuality
-
-from config import SPOTIFY_ENABLED
 from bot.utils import cleanup_cache, tag_ogg_file, get_cache_path
 from mutagen.oggvorbis import OggVorbisHeaderError
 
+load_dotenv('.env')
+SPOTIFY_ENABLED = bool(os.getenv('SPOTIFY_ENABLED'))
 
 class SpotifyDownload(commands.Cog):
     def __init__(self, bot) -> None:
@@ -48,7 +49,6 @@ class SpotifyDownload(commands.Cog):
 
         await ctx.respond('Chờ mình một lát nha~')
 
-        # Quality dict
         quality_dict = {
             'Cao (OGG 320kbps)': AudioQuality.VERY_HIGH,
             'Trung bình (OGG 160kbps)': AudioQuality.HIGH,

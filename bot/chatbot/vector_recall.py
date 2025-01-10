@@ -1,34 +1,32 @@
 import os
 import asyncio
-from typing import Optional
 import logging
 import uuid
-from datetime import datetime
 import typing_extensions as typing
 import enum
 import json
-
+import pytz
 import google.generativeai as genai
+
+from dotenv import load_dotenv
+from datetime import datetime
+from typing import Optional
 from pinecone.grpc import PineconeGRPC as Pinecone
 from pinecone import ServerlessSpec
 from dotenv import load_dotenv
-import pytz
 
-from config import (
-    CHATBOT_TIMEZONE,
-    GEMINI_UTILS_MODEL,
-    PINECONE_RECALL_WINDOW
-)
+load_dotenv('.env')
 
-
-# Init
-load_dotenv()
 GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
+PINECONE_API_KEY = os.getenv('PINECONE_API_KEY')
+CHATBOT_TIMEZONE = os.getenv('CHATBOT_TIMEZONE')
+GEMINI_UTILS_MODEL = os.getenv('GEMINI_UTILS_MODEL')
+PINECONE_RECALL_WINDOW = os.getenv('PINECONE_RECALL_WINDOW')
+
 genai.configure(api_key=GEMINI_API_KEY)
 model = genai.GenerativeModel(
     model_name=GEMINI_UTILS_MODEL
 )
-PINECONE_API_KEY = os.getenv('PINECONE_API_KEY')
 
 
 class QueryType(enum.Enum):

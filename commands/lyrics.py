@@ -1,14 +1,10 @@
 import logging
-from typing import Optional
-from config import (
-    SPOTIFY_ENABLED, 
-    DEFAULT_EMBED_COLOR, 
-    CHATBOT_ENABLED,
-)
-
 import discord
-from discord.ext import commands
+import os
 
+from dotenv import load_dotenv
+from typing import Optional
+from discord.ext import commands
 from bot.lyrics import BotLyrics
 from bot.vocal.session_manager import session_manager
 from bot.utils import get_dominant_rgb_from_url, split_into_chunks
@@ -16,7 +12,9 @@ from commands.vocal.play import Play
 
 
 logger = logging.getLogger(__name__)
-
+SPOTIFY_ENABLED = bool(os.getenv('SPOTIFY_ENABLED'))
+DEFAULT_EMBED_COLOR = tuple(os.getenv('DEFAULT_EMBED_COLOR'))
+CHATBOT_ENABLED = bool(os.getenv('CHATBOT_ENABLED'))
 
 class Lyrics(commands.Cog):
     def __init__(self, bot) -> None:

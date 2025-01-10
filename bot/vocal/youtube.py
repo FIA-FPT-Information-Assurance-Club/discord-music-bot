@@ -1,16 +1,14 @@
 import asyncio
 import re
-from pathlib import Path
-from typing import Union
-
 import yt_dlp
-from typing import Optional
 import aiohttp
 
+from pathlib import Path
+from typing import Union
+from typing import Optional
 from bot.search import is_url
 from bot.utils import get_cache_path, get_dominant_rgb_from_url
 from bot.vocal.custom import generate_info_embed
-
 
 yt_dlp.utils.bug_reports_message = lambda: ''  # disable yt_dlp bug report
 

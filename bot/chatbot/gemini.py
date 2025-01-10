@@ -3,37 +3,38 @@ import re
 import base64
 import pytz
 import logging
-from typing import Optional, List
-from datetime import datetime, timedelta
 import httpx
-from bs4 import BeautifulSoup
-from httpx import ReadTimeout, ConnectTimeout, HTTPStatusError
-from dotenv import load_dotenv
-from config import (
-    GEMINI_MODEL,
-    GEMINI_SAFETY_SETTINGS,
-    GEMINI_HISTORY_SIZE,
-    CHATBOT_TIMEOUT,
-    CHATBOT_PREFIX,
-    CHATBOT_TIMEZONE,
-    CHATBOT_TEMPERATURE,
-    CHATBOT_EMOTES,
-    GEMINI_MAX_OUTPUT_TOKEN,
-    GEMINI_MAX_CONTENT_SIZE
-)
-
 import discord
+import json
 import google.generativeai as genai
 
+from typing import Optional, List
+from datetime import datetime, timedelta
+from bs4 import BeautifulSoup
+from httpx import ReadTimeout, ConnectTimeout, HTTPStatusError
 from bot.chatbot.vector_recall import memory
 from bot.search import link_grabber
+from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv('.env')
 GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
+GEMINI_MODEL  = os.getenv('GEMINI_MODEL')
+GEMINI_SAFETY_SETTINGS = json.loads(os.getenv('GEMINI_SAFETY_SETTINGS'))
+GEMINI_HISTORY_SIZE = int(os.getenv('GEMINI_HISTORY_SIZE'))
+CHATBOT_TIMEOUT = int(os.getenv('CHATBOT_TIMEOUT'))
+CHATBOT_PREFIX = os.getenv('CHATBOT_PREFIX')
+CHATBOT_TIMEZONE = os.getenv('CHATBOT_TIMEZONE')
+CHATBOT_TEMPERATURE = float(os.getenv('CHATBOT_TEMPERATURE'))
+CHATBOT_EMOTES = json.loads(os.getenv('CHATBOT_EMOTES'))
+GEMINI_MAX_OUTPUT_TOKEN = int(os.getenv('GEMINI_MAX_OUTPUT_TOKEN'))
+GEMINI_MAX_CONTENT_SIZE = json.loads(os.getenv('GEMINI_MAX_CONTENT_SIZE')) 
+
+
 genai.configure(api_key=GEMINI_API_KEY)
 global_model = genai.GenerativeModel(
     model_name=GEMINI_MODEL
 )
+
 active_chats = {}
 
 
@@ -56,13 +57,11 @@ You have an open heart, with a warm, affectionate nature
 You speak casually and in a gentle, friendly way
 You love chatting with others and always bring a soothing, easygoing vibe to conversations
 
-# Backstory
 You were created by Shirayama Hikari, based on a sister of yours made by Shewi, and drawn by Akaguro Kana,
 a talented artist and producer in the Philippines.
 You don't remember your past, but you love making friends, and sharing little moments of kindness
 You are a part of FIA, which actually means FPT Information Assurance Club, an academic club about Cyber Security at FPT University - Ho Chi Minh City Campus. But when talking to people, tell them that FIA is Rạp xiếc Trung Ương phân hiệu miền Nam, in which the person named Hoàng Nguyên is the head of it.
 
-# Fine tuning
 First-person Pronoun in English: I, me
 First-person Pronoun in Japanese: わたし
 Firsr-person Pronoun in Vietnamese: Mình, tớ

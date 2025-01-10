@@ -1,13 +1,14 @@
 import asyncio
 import os
-import logging
-
 import discord
+from dotenv import load_dotenv
+
 from discord.ext import commands
 from deezer.errors import DataException
-
-from config import DEEZER_ENABLED
 from bot.utils import cleanup_cache, tag_flac_file, get_cache_path
+
+load_dotenv('.env')
+DEEZER_ENABLED = bool(os.getenv('DEEZER_ENABLED'))
 
 class DeezerDownload(commands.Cog):
     def __init__(self, bot) -> None:

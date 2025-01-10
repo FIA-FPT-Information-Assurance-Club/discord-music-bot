@@ -1,20 +1,15 @@
 import logging
-import re
-from typing import Dict, Optional
-
 import discord
+import re
+import os
+
+from dotenv import load_dotenv
+from typing import Dict, Optional
 from discord.ext import commands
+from google.generativeai.types.generation_types import BlockedPromptException, StopCandidateException
 
-from config import (
-    CHATBOT_WHITELIST,
-    CHATBOT_ENABLED
-)
-import google.generativeai as genai
-
-from google.generativeai.types.generation_types import (
-    BlockedPromptException,
-    StopCandidateException
-)
+load_dotenv('.env')
+CHATBOT_ENABLED = bool(os.getenv('CHATBOT_ENABLED'))
 
 ADMIN_USER_ID = 295188325684346880
 TARGET_SERVER_ID = 1216978943920443452

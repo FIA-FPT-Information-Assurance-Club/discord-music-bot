@@ -1,10 +1,10 @@
-from typing import Optional
+import discord
 
+from typing import Optional
 from bot.vocal.session_manager import session_manager as sm
 from bot.vocal.server_session import ServerSession
 from bot.utils import send_response
 from discord.ext import commands
-import discord
 
 
 class Shuffle(commands.Cog):

@@ -1,17 +1,19 @@
 import re
+import discord
+import os
+
+from dotenv import load_dotenv
 from urllib.parse import unquote
 from typing import Optional
-
-
-import discord
 from aiohttp.client_exceptions import ClientResponseError
 from yt_dlp.utils import DownloadError
-
 from bot.vocal.custom import fetch_audio_stream, upload_cover, generate_info_embed
 from bot.vocal.server_session import ServerSession
 from bot.utils import get_metadata, extract_cover_art, extract_number, get_dominant_rgb_from_url
 from bot.vocal.session_manager import onsei
-from config import DEFAULT_EMBED_COLOR
+
+load_dotenv('.env')
+DEFAULT_EMBED_COLOR = tuple(os.getenv('DEFAULT_EMBED_COLOR'))
 
 
 async def play_spotify(
