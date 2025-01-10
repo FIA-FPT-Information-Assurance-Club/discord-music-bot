@@ -22,7 +22,7 @@ class Lyrics(commands.Cog):
 
     @commands.slash_command(
         name="lyrics",
-        description='Lấy lời bài hát bất kỳ, hoặc là bài hát đang phát hiện tại.'
+        description='Lấy lời bài hát bất kỳ, hoặc bài hát đang phát hiện tại.'
     )
     async def lyrics(
         self,

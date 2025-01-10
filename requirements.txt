@@ -19,6 +19,7 @@ pandas
 httpx
 discord
 aiohttp
+boto3
 
 git+https://github.com/Shewiiii/librespot-python
 git+https://github.com/Pycord-Development/pycord

@@ -143,7 +143,7 @@ class HelpDropdown(discord.ui.Select):
             embed.add_field(
                 name="/ask",
                 value=(
-                    "Hỏi Ugoku bất kỳ điều gì\n"
+                    "Hỏi Kohane bất kỳ điều gì\n"
                     "Ví dụ: ``/ask Viết một đoạn mã Python hiển thị thời gian hiện tại``\n"
                     "Hoạt động trên: Máy chủ / Cá nhân"
                 ),
@@ -177,19 +177,19 @@ class HelpDropdown(discord.ui.Select):
                 inline=False
             )
             embed.add_field(
-                name="-",
+                name="!",
                 value=(
                     "Kích hoạt chatbot\n"
-                    "Ví dụ: ``-Hi, bạn là ai?``\n"
+                    "Ví dụ: ``!Hi, bạn là ai?``\n"
                     "Hoạt động trên: Máy chủ"
                 ),
                 inline=False
             )
             embed.add_field(
-                name="--",
+                name="!!",
                 value=(
                     "Kích hoạt chế độ liên tục của chatbot\n"
-                    "Ví dụ: ``--Hi, bạn là ai?``\n"
+                    "Ví dụ: ``!!Hi, bạn là ai?``\n"
                     "Hoạt động trên: Máy chủ"
                 ),
                 inline=False
@@ -213,7 +213,7 @@ class HelpDropdown(discord.ui.Select):
             embed.add_field(
                 name="/ping",
                 value=(
-                    "Kiểm tra thời gian phản hồi của Ugoku\n"
+                    "Kiểm tra thời gian phản hồi của Kohane! \n"
                     "Ví dụ: ``/ping``\n"
                     "Hoạt động trên: Máy chủ / Cá nhân"
                 ),
@@ -232,7 +232,7 @@ class HelpDropdown(discord.ui.Select):
                 name="/echo",
                 value=(
                     "Lặp lại tin nhắn của bạn\n"
-                    "Ví dụ: ``/echo Hibiki dễ thương``\n"
+                    "Ví dụ: ``/echo Don't be afraid to find us, we are here to secure your digital life``\n"
                     "Hoạt động trên: Máy chủ / Cá nhân"
                 ),
                 inline=False
