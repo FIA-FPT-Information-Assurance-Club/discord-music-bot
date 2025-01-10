@@ -5,21 +5,9 @@ import logging
 import discord
 from discord.ext import commands
 from deezer.errors import DataException
-import boto3
-from botocore.exceptions import BotoCoreError, ClientError
 
 from config import DEEZER_ENABLED
 from bot.utils import cleanup_cache, tag_flac_file, get_cache_path
-
-end_url=os.getenv("ENDPOINT_URL")
-
-# Initialize the R2 client
-r2_client = boto3.client(
-    's3',
-    endpoint_url=end_url,
-    aws_access_key_id=os.getenv("AWS_SECRET_KEY_ID"),
-    aws_secret_access_key=os.getenv("AWS_SECRET_KEY")
-)
 
 class DeezerDownload(commands.Cog):
     def __init__(self, bot) -> None:
@@ -44,9 +32,10 @@ class DeezerDownload(commands.Cog):
 
         await ctx.respond('Chờ mình một lát nha~')
 
+        # Get the track from query
+        self.bot.downloading = True
         try:
             track = await self.bot.deezer.get_stream_url_from_query(query)
-            logging.info(f"Track data: {track}")
         except DataException:
             await ctx.edit(content="Không tìm thấy bài hát !")
             return
@@ -73,8 +62,7 @@ class DeezerDownload(commands.Cog):
             album_cover_url=track['cover']
         )
 
-        display_name_link = display_name.replace(' ','%20')
-
+        # Upload if possible
         size = os.path.getsize(file_path)
         if size < ctx.guild.filesize_limit:
             await ctx.edit(
@@ -85,23 +73,8 @@ class DeezerDownload(commands.Cog):
                 )
             )
         else:
-            try:
-                bucket_name = os.getenv("BUCKET_NAME")
-                key = f"{bucket_name}/tracks/{display_name}.flac"
-                key_link = f"{bucket_name}/tracks/{display_name_link}.flac"
-                    
-                r2_client.upload_file(file_path, bucket_name, key)
+            await ctx.edit(content=f"Tải thất bại: Tệp quá lớn")
 
-                custom_domain = os.getenv("CUSTOM_DOMAIN")
-                if custom_domain:
-                    public_url = f"{custom_domain}/{key_link}"
-                else:
-                    public_url = f"{end_url}/{key_link}"
 
-                await ctx.edit(content=f"Tệp quá lớn. Bạn có thể tải tại đây: {public_url}")
-            except (BotoCoreError, ClientError) as e:
-                logging.error(f"Error uploading to S3: {e}")
-                await ctx.edit(content="Lỗi khi tải lên S3.")
-        
 def setup(bot):
     bot.add_cog(DeezerDownload(bot))

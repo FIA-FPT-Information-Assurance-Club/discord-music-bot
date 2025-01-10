@@ -20,7 +20,6 @@
 - Tải bộ stickers từ Line (giúp đa dạng hóa số emoji / stickers trên Discord :) )
 - Tải nhạc từ Spotify
 - Tải nhạc chất lượng rất cao từ Deezer
-  - Hỗ trợ tải lên một xô S3 bất kỳ để dễ dàng chia sẻ, hoặc nếu bài hát ấy quá nặng để tải lên Discord
 - Phát nhạc trong kênh thoại:
   - Bỏ qua, Hiển thị hàng chờ, Tự động nhận diện và thêm bài hát/album/danh sách phát.
   - Lặp lại bài hát/hàng chờ, Tạm dừng, Tiếp tục...
@@ -118,5 +117,5 @@ python3 -m pip install -r requirements.txt
   <img src="img/ex7.png">
   <p>Không biết lệnh đó để làm gì? Có trang trợ giúp luôn</p>
   <img src="img/ex8.png">
-  <p>Bạn là wibu?, có luôn tính năng tìm ảnh wibu luôn :)) </p>
+  <p>Bạn là wibu, có luôn tính năng tìm ảnh wibu luôn :)) </p>
 </div>
