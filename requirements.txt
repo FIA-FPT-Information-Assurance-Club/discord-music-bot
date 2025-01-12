@@ -19,7 +19,9 @@ pandas
 httpx
 discord
 aiohttp
+boto3
 mysql-connector-python 
+
 
 git+https://github.com/Shewiiii/librespot-python
 git+https://github.com/Pycord-Development/pycord

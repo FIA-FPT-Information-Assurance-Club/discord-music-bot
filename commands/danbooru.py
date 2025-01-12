@@ -61,10 +61,10 @@ class Danbooru_(commands.Cog):
             source = post.get('source', '')
             danbooru_source = f"https://danbooru.donmai.us/posts/{id}"
             if is_url(source):
-                desc = (f"[source]({source}), "
-                        f"[danbooru source]({danbooru_source})")
+                desc = (f"[nguồn]({source}), "
+                        f"[nguồn danbooru]({danbooru_source})")
             else:
-                desc = f"[danbooru source]({danbooru_source})"
+                desc = f"[nguồn danbooru]({danbooru_source})"
 
             # Prepare the embed
             dominant_rgb = await get_dominant_rgb_from_url(post['preview_file_url'])

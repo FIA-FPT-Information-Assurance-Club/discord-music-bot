@@ -1,14 +1,27 @@
 import asyncio
 import os
 import discord
-from dotenv import load_dotenv
+import boto3
+import logging
 
+from dotenv import load_dotenv
 from discord.ext import commands
 from deezer.errors import DataException
+from botocore.exceptions import BotoCoreError, ClientError
 from bot.utils import cleanup_cache, tag_flac_file, get_cache_path
 
-load_dotenv('.env', override=True)
-DEEZER_ENABLED = os.getenv('DEEZER_ENABLED', 'false').lower() == 'true'
+load_dotenv('.env')
+DEEZER_ENABLED = bool(os.getenv('DEEZER_ENABLED'))
+UPLOAD_TO_S3_ENABLED = bool(os.getenv('UPLOAD_TO_S3_ENABLED'))
+
+end_url = os.getenv(ENDPOINT_URL)
+
+r2_client = boto3.client(
+    's3',
+    endpoint_url=end_url,
+    aws_access_key_id=os.getenv("AWS_SECRET_KEY_ID"),
+    aws_secret_access_key=os.getenv("AWS_SECRET_KEY")
+)
 
 class DeezerDownload(commands.Cog):
     def __init__(self, bot) -> None:
@@ -73,8 +86,27 @@ class DeezerDownload(commands.Cog):
                     filename=f"{display_name}.flac"
                 )
             )
+        elif UPLOAD_TO_S3_ENABLED:
+            try:
+                bucket_name = os.getenv("BUCKET_NAME")
+                display_name_link = display_name.replace(' ','%20')
+                key = f"{bucket_name}/tracks/{display_name}.flac" # Tên tệp khi ở trên xô S3
+                key_link = f"{bucket_name}tracks/{display_name_link}.flac" # Tên tệp được chỉnh sửa để phù hợp với cấu trúc đường dẫn URL
+
+                r2_client.upload_file(file_path, bucket_name, key)
+
+                custom_domain = os.getenv("CUSTOM_DOMAIN")
+                if custom_domain:
+                    public_url = f"{custom_domain}/{key_link}"
+                else:
+                    public_url = f"{end_url}/{key_link}"
+
+                await ctx.edit(content=f"Tệp quá lớn. Bạn có thể tải tại đây: {public_url}")
+            except (BotoCoreError, ClientError) as e:
+                logging.error(f"Error uploading to S3: {e}")
+                await ctx.edit(content="Tải thất bại. Không thể tải lên S3")
         else:
-            await ctx.edit(content=f"Tải thất bại: Tệp quá lớn")
+            await ctx.edit(content="Tải thất bại: Tệp quá lớn")
 
 
 def setup(bot):

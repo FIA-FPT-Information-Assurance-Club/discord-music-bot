@@ -4,11 +4,7 @@
   </a>
   <p>Minh họa bởi 赤黒佳奈 | Akaguro Kana</p>
   <h1>FIA Discord Music Bot - Codename: 星野小羽 | Hoshino Kohane</h1>
-</div>
-<h3> Dựa trên nguyên tác <a href="https://github.com/Shewiiii/Ugoku-v2">Ugoku-v2</a> của <a href="https://twitter.com/Shewiiiiiii">Shewi</a>, Việt hóa, sửa đổi và thêm tính năng bới Công Phúc <del> sau khi xém nữa bị dọa kiện bởi tác giả gốc</del></h3>
-<div align="center">
-  <img src="img/shuwi_legal.png">
-  <p>Không có vấn đề pháp lý đâu, đã confirm với tác giả gốc rồi</p>
+  <h3> Dựa trên nguyên tác <a href="https://github.com/Shewiiii/Ugoku-v2">Ugoku-v2</a> của <a href="https://twitter.com/Shewiiiiiii">Shewi</a>, Việt hóa, sửa đổi và thêm tính năng bới Công Phúc </h3>
 </div>
 
 <h2> Tính năng </h2>
@@ -20,13 +16,14 @@
 - Tải bộ stickers từ Line (giúp đa dạng hóa số emoji / stickers trên Discord :) )
 - Tải nhạc từ Spotify
 - Tải nhạc chất lượng rất cao từ Deezer
+  - Hỗ trợ tải tệp bài hát lên xô S3 nếu tệp bài hát nặng hơn giới hạn tải tệp của máy chủ.
 - Phát nhạc trong kênh thoại:
   - Bỏ qua, Hiển thị hàng chờ, Tự động nhận diện và thêm bài hát/album/danh sách phát.
   - Lặp lại bài hát/hàng chờ, Tạm dừng, Tiếp tục...
   - Chất lượng âm thanh cao, không bị giới hạn (hơn hẳn Jockie Music)
   - Phát nhạc từ Spotify
   - Phát nhạc chất lượng cao (nếu bài hát đó có trên Deezer)
-  - Phát các tác phẩm âm thanh (音声作品) trên kênh thoại (tại sao không chứ, cuộc sống này thật vui khi là wibu ^^)
+  - Phát các tác phẩm âm thanh (音声作品) trên kênh thoại (tại sao không chứ)
   - Phát video từ YouTube
   - Phát nhạc từ một URL (nguồn tùy chỉnh)
   - Lưu lại bài hát đã phát (nguồn tùy chỉnh)
@@ -37,11 +34,7 @@
   - Có "ký ức vính viễn" (sử dụng Pinecone)
 - Hiển thị một ảnh bất kỳ từ Danbooru (wibu for the win ^^ ) (ảnh phù hợp với gia đình)
 > [!NOTE]
-> Một số tính năng của bot có thể hoạt động trong máy chủ có bot đang hoạt động, hoặc bằng cách nhắn tin trực tiếp với bot. (tính năng đang được hoàn thiện, đã có thể dùng được với bản này) Chi tiết thêm, cùng với các lệnh hiện có, cấu trúc và ví dụ, vui lòng truy cập: <a href="https://docs.google.com/spreadsheets/d/1nqn9kcO2LbQ6BacGJDaFbIAkA6jvT0HV3kM7ZRiqoow"> Google Sheet chính thức </a> hoặc dùng lênh `/help`
-
-<img src="img/shuwi_help.png" alt="shuwiwi ">
-<p> hề hước chưa :)) </p>
-
+> Một số tính năng của bot có thể hoạt động trong máy chủ có bot đang hoạt động, hoặc bằng cách nhắn tin trực tiếp với bot. Chi tiết thêm, cùng với các lệnh hiện có, cấu trúc và ví dụ, vui lòng truy cập: <a href="https://docs.google.com/spreadsheets/d/1nqn9kcO2LbQ6BacGJDaFbIAkA6jvT0HV3kM7ZRiqoow"> Google Sheet chính thức </a> hoặc dùng lênh `/help`
 
 <h2> Yêu cầu </h2>
 
@@ -117,5 +110,4 @@ python3 -m pip install -r requirements.txt
   <img src="img/ex7.png">
   <p>Không biết lệnh đó để làm gì? Có trang trợ giúp luôn</p>
   <img src="img/ex8.png">
-  <p>Bạn là wibu, có luôn tính năng tìm ảnh wibu luôn :)) </p>
-</div>
+  <p>Bạn là wibu?, có luôn tính năng tìm ảnh wibu luôn :)) </p>
