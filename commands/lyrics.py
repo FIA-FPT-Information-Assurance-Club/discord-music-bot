@@ -12,9 +12,16 @@ from commands.vocal.play import Play
 
 
 logger = logging.getLogger(__name__)
-SPOTIFY_ENABLED = bool(os.getenv('SPOTIFY_ENABLED'))
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+)
+
+
+load_dotenv('.env', override=True)
+SPOTIFY_ENABLED = os.getenv('SPOTIFY_ENABLED', 'false').lower() == 'true'
 DEFAULT_EMBED_COLOR = tuple(os.getenv('DEFAULT_EMBED_COLOR'))
-CHATBOT_ENABLED = bool(os.getenv('CHATBOT_ENABLED'))
+CHATBOT_ENABLED = os.getenv('CHATBOT_ENABLED', 'false').lower() == 'true'
 
 class Lyrics(commands.Cog):
     def __init__(self, bot) -> None:

@@ -17,11 +17,17 @@ from deemix.plugins.spotify import Spotify as Spplugin
 from bot.search import is_url
 from bot.utils import get_cache_path
 
-load_dotenv('.env')
+load_dotenv('.env', override=True)
 SPOTIPY_CLIENT_ID = os.getenv('SPOTIPY_CLIENT_ID')
 SPOTIPY_CLIENT_SECRET = os.getenv('SPOTIPY_CLIENT_SECRET')
 DEEZER_ARL = os.getenv('DEEZER_ARL')
-SPOTIFY_API_ENABLED = bool(os.getenv('SPOTIFY_API_ENABLED'))
+SPOTIFY_API_ENABLED = os.getenv('SPOTIFY_API_ENABLED', 'false').strip().lower() == 'true'
+
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+)
+
 
 class DeezerChunkedInputStream:
     """track: {'track_id': int, 'stream_url': str}"""

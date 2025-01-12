@@ -9,3 +9,4 @@ temp
 *.json
 .github/
 test*.py
+*.sql

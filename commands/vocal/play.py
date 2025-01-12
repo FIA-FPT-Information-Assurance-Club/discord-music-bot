@@ -10,10 +10,10 @@ from bot.vocal.audio_source_handlers import play_spotify, play_custom, play_onse
 from bot.utils import is_onsei, send_response
 from bot.search import is_url
 
-load_dotenv('.env')
-SPOTIFY_ENABLED = bool(os.getenv('SPOTIFY_ENABLED'))
-DEEZER_ENABLED = bool(os.getenv('DEEZER_ENABLED'))
-SPOTIFY_API_ENABLED = bool(os.getenv('SPOTIFY_API_ENABLED'))
+load_dotenv('.env', override=True)
+SPOTIFY_ENABLED = os.getenv('SPOTIFY_ENABLED','false').lower() == 'true'
+DEEZER_ENABLED = os.getenv('DEEZER_ENABLED','false').lower() == 'true'
+SPOTIFY_API_ENABLED = os.getenv('SPOTIFY_API_ENABLED','false').lower() == 'true'
 DEFAULT_STREAMING_SERVICE = os.getenv('DEFAULT_STREAMING_SERVICE')
 
 

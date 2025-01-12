@@ -9,10 +9,15 @@ from discord.ext import commands
 from google.generativeai.types.generation_types import BlockedPromptException
 
 #DEFINE VARIABLE
-load_dotenv('.env')
+load_dotenv('.env', override=True)
 LANGUAGES = os.getenv('LANGUAGES')
-CHATBOT_ENABLED = bool(os.getenv('CHATBOT_ENABLED'))
+CHATBOT_ENABLED = os.getenv('CHATBOT_ENABLED', 'false').lower() == 'true'
 CHATBOT_WHITELIST = repair_json(os.getenv('CHATBOT_WHITELIST', '[]'))
+
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+)
 
 try:
     CHATBOT_WHITELIST = json.loads(CHATBOT_WHITELIST)
@@ -21,10 +26,6 @@ try:
 except json.JSONDecodeError:
     CHATBOT_WHITELIST = []
     logging.error("Error decoding CHATBOT_WHITELIST, defaulting to an empty list.")
-
-# for i in CHATBOT_WHITELIST:
-#     print(i)
-# print(CHATBOT_WHITELIST)
 
 if CHATBOT_ENABLED:
     from bot.chatbot.gemini import Gembot, active_chats

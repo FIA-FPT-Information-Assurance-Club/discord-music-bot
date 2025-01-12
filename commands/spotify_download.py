@@ -9,8 +9,13 @@ from librespot.audio.decoders import AudioQuality
 from bot.utils import cleanup_cache, tag_ogg_file, get_cache_path
 from mutagen.oggvorbis import OggVorbisHeaderError
 
-load_dotenv('.env')
-SPOTIFY_ENABLED = bool(os.getenv('SPOTIFY_ENABLED'))
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+)
+
+load_dotenv('.env', override=True)
+SPOTIFY_ENABLED = os.getenv('SPOTIFY_ENABLED', 'false').lower() == 'true'
 
 class SpotifyDownload(commands.Cog):
     def __init__(self, bot) -> None:

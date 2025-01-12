@@ -9,14 +9,19 @@ from dotenv import load_dotenv
 
 logger = logging.getLogger(__name__)
 
-load_dotenv('.env')
+load_dotenv('.env', override=True)
 MUSIXMATCH_TOKEN = os.getenv('MUSIXMATCH_TOKEN')
 GEMINI_UTILS_MODEL = os.getenv('GEMINI_UTILS_MODEL')
-CHATBOT_ENABLED = bool(os.getenv('CHATBOT_ENABLED'))
+CHATBOT_ENABLED = os.getenv('CHATBOT_ENABLED', "false").strip().lower() == "true"
 
 if CHATBOT_ENABLED:
     from bot.chatbot.gemini import Gembot
     import google.generativeai as genai
+
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+)
 
 class BotLyrics:
 

@@ -13,9 +13,8 @@ from datetime import datetime
 from typing import Optional
 from pinecone.grpc import PineconeGRPC as Pinecone
 from pinecone import ServerlessSpec
-from dotenv import load_dotenv
 
-load_dotenv('.env')
+load_dotenv('.env', override=True)
 
 GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
 PINECONE_API_KEY = os.getenv('PINECONE_API_KEY')
@@ -26,6 +25,11 @@ PINECONE_RECALL_WINDOW = os.getenv('PINECONE_RECALL_WINDOW')
 genai.configure(api_key=GEMINI_API_KEY)
 model = genai.GenerativeModel(
     model_name=GEMINI_UTILS_MODEL
+)
+
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
 )
 
 

@@ -7,8 +7,8 @@ from discord.ext import commands
 from deezer.errors import DataException
 from bot.utils import cleanup_cache, tag_flac_file, get_cache_path
 
-load_dotenv('.env')
-DEEZER_ENABLED = bool(os.getenv('DEEZER_ENABLED'))
+load_dotenv('.env', override=True)
+DEEZER_ENABLED = os.getenv('DEEZER_ENABLED', 'false').lower() == 'true'
 
 class DeezerDownload(commands.Cog):
     def __init__(self, bot) -> None:

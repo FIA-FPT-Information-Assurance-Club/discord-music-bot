@@ -9,7 +9,7 @@ from typing import Optional
 from bot.chatbot.gemini import Prompts, Gembot
 from bot.utils import extract_video_id, get_cache_path
 
-load_dotenv('.env')
+load_dotenv('.env', override=True)
 GEMINI_UTILS_MODEL = os.getenv('GEMINI_UTILS_MODEL')
 
 

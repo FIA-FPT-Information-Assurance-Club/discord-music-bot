@@ -9,7 +9,7 @@ from bot.vocal.custom import get_cover_data_from_hash
 from bot.utils import get_dominant_rgb_from_url, split_into_chunks
 from bot.vocal.types import QueueItem
 
-load_dotenv('.env')
+load_dotenv('.env', override=True)
 DEFAULT_EMBED_COLOR = tuple(os.getenv('DEFAULT_EMBED_COLOR'))
 
 

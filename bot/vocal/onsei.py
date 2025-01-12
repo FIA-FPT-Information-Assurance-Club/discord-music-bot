@@ -10,8 +10,7 @@ from typing import Optional, Literal
 from bot.vocal.types import OnseiAPIResponse, TrackUrlMapping, TrackTitle, MediaStreamUrl
 
 logger = logging.getLogger(__name__)
-load_dotenv('.env')
-
+load_dotenv('.env', override=True)
 ONSEI_BLACKLIST = repair_json(os.getenv('ONSEI_BLACKLIST', '[]'))
 ONSEI_WHITELIST = repair_json(os.getenv('ONSEI_WHITELIST', '[]'))
 
@@ -27,6 +26,11 @@ def validate_json_list(env_var, default_value=[]):
 
 ONSEI_BLACKLIST = validate_json_list(ONSEI_BLACKLIST)
 ONSEI_WHITELIST = validate_json_list(ONSEI_WHITELIST)
+
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+)
 
 
 class Onsei:

@@ -3,6 +3,11 @@ from discord.ext import commands
 
 import logging
 
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+)
+
 
 class Ping(commands.Cog):
     def __init__(self, bot) -> None:

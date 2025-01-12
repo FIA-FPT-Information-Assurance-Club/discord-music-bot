@@ -1,9 +1,13 @@
 from discord.ext import commands
 
-
 import discord
 import logging
 
+
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+)
 
 class Echo(commands.Cog):
     def __init__(self, bot) -> None:
@@ -27,7 +31,6 @@ class Echo(commands.Cog):
             await ctx.respond(content=message)
         else:
             await ctx.send(content=message)
-            await ctx.respond('Xong !', ephemeral=True)
 
 def setup(bot):
     bot.add_cog(Echo(bot))

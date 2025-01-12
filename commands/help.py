@@ -5,15 +5,14 @@ from dotenv import load_dotenv
 from discord.ext import commands
 
 
-load_dotenv('.env')
-CHATBOT_ENABLED = bool(os.getenv('CHATBOT_ENABLED'))
-SPOTIFY_ENABLED = bool(os.getenv('SPOTIFY_ENABLED'))
-
+load_dotenv('.env', override=True)
+CHATBOT_ENABLED = os.getenv('CHATBOT_ENABLED', 'false').lower() == 'true'
+SPOTIFY_ENABLED = os.getenv('SPOTIFY_ENABLED', 'false').lower() == 'true'
 
 class HelpDropdown(discord.ui.Select):
     def __init__(self):
         
-        options = [ #base options
+        options = [
             discord.SelectOption(
                 label="Khác",
                 description="Các tính năng khác",

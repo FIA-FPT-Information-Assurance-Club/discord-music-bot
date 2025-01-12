@@ -12,7 +12,7 @@ from bot.vocal.server_session import ServerSession
 from bot.utils import get_metadata, extract_cover_art, extract_number, get_dominant_rgb_from_url
 from bot.vocal.session_manager import onsei
 
-load_dotenv('.env')
+load_dotenv('.env', override=True)
 DEFAULT_EMBED_COLOR = tuple(os.getenv('DEFAULT_EMBED_COLOR'))
 
 

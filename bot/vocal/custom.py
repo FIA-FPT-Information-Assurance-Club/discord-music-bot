@@ -14,13 +14,18 @@ from bot.utils import cleanup_cache, get_cache_path, get_accent_color
 
 
 logger = logging.getLogger(__name__)
-load_dotenv('.env')
+load_dotenv('.env', override=True)
 
 
 IMGUR_CLIENT_ID = os.getenv('IMGUR_CLIENT_ID')
 CACHE_EXPIRY = int(os.getenv('CACHE_EXPIRY'))
 TEMP_FOLDER = Path('.')/os.getenv('TEMP_FOLDER')
 DEFAULT_EMBED_COLOR = tuple(os.getenv('DEFAULT_EMBED_COLOR'))
+
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+)
 
 
 async def upload_cover(cover_bytes: bytes) -> Optional[CoverData]:

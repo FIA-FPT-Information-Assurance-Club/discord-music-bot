@@ -18,11 +18,17 @@ from bot.vocal.deezer import DeezerChunkedInputStream
 from deemix.errors import GenerationError
 from typing import TYPE_CHECKING
 
-load_dotenv('.env')
+load_dotenv('.env', override=True)
 AUTO_LEAVE_DURATION = int(os.getenv('AUTO_LEAVE_DURATION'))
 DEFAULT_AUDIO_VOLUME = int(os.getenv('DEFAULT_AUDIO_VOLUME'))
-DEEZER_ENABLED = bool(os.getenv('DEEZER_ENABLED'))
-SPOTIFY_ENABLED = bool(os.getenv('SPOTIFY_ENABLED'))
+DEEZER_ENABLED = os.getenv('DEEZER_ENABLED', 'false').lower() == 'true'
+SPOTIFY_ENABLED = os.getenv('SPOTIFY_ENABLED', 'false').lower() == 'true'
+
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+)
+
 
 if TYPE_CHECKING:
     from bot.vocal.session_manager import SessionManager

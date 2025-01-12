@@ -7,6 +7,11 @@ from bot.danbooru import Danbooru
 from bot.utils import get_dominant_rgb_from_url
 from bot.search import is_url
 
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+)
+
 
 class Danbooru_(commands.Cog):
     def __init__(self, bot) -> None:

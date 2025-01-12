@@ -30,10 +30,15 @@ from mutagen.wave import WAVE
 
 logger = logging.getLogger(__name__)
 
-load_dotenv('.env')
+load_dotenv('.env', override=True)
 TEMP_FOLDER = Path('.')/os.getenv('TEMP_FOLDER')
 CACHE_EXPIRY = int(os.getenv('CACHE_EXPIRY'))
 CACHE_SIZE = int(os.getenv('CACHE_SIZE'))
+
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+)
 
 
 def extract_number(string: str) -> Optional[str]:

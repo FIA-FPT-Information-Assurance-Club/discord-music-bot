@@ -33,11 +33,17 @@ from bot.vocal.types import (
 
 
 logging.getLogger('zeroconf').setLevel(logging.ERROR)
-load_dotenv('.env')
+load_dotenv('.env', override=True)
 
 SPOTIFY_TOP_COUNTRY = os.getenv('SPOTIFY_TOP_COUNTRY')
-SPOTIFY_ENABLED = bool(os.getenv('SPOTIFY_ENABLED'))
-SPOTIFY_API_ENABLED = bool(os.getenv('SPOTIFY_API_ENABLED'))
+SPOTIFY_ENABLED = os.getenv('SPOTIFY_ENABLED', 'false').lower() == 'true'
+SPOTIFY_API_ENABLED = os.getenv('SPOTIFY_API_ENABLED', 'false').lower() == 'true'
+
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+)
+
 
 # Spotify Application credentials
 class SpotifyConfig:

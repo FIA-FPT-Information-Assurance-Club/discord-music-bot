@@ -8,6 +8,12 @@ from bot.vocal.server_session import ServerSession
 onsei = Onsei()
 logger = logging.getLogger(__name__)
 
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+)
+
+
 class SessionManager:
     def __init__(self) -> None:
         """

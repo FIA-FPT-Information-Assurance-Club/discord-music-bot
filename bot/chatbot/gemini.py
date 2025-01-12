@@ -16,7 +16,7 @@ from bot.chatbot.vector_recall import memory
 from bot.search import link_grabber
 from dotenv import load_dotenv
 
-load_dotenv('.env')
+load_dotenv('.env', override=True)
 GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
 GEMINI_MODEL  = os.getenv('GEMINI_MODEL')
 GEMINI_SAFETY_SETTINGS = json.loads(os.getenv('GEMINI_SAFETY_SETTINGS'))
@@ -28,6 +28,11 @@ CHATBOT_TEMPERATURE = float(os.getenv('CHATBOT_TEMPERATURE'))
 CHATBOT_EMOTES = json.loads(os.getenv('CHATBOT_EMOTES'))
 GEMINI_MAX_OUTPUT_TOKEN = int(os.getenv('GEMINI_MAX_OUTPUT_TOKEN'))
 GEMINI_MAX_CONTENT_SIZE = json.loads(os.getenv('GEMINI_MAX_CONTENT_SIZE')) 
+
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+)
 
 
 genai.configure(api_key=GEMINI_API_KEY)

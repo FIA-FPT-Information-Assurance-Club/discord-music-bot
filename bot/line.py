@@ -19,7 +19,7 @@ from bot.utils import sanitize_filename
 
 logger = logging.getLogger(__name__)
 
-load_dotenv('.env')
+load_dotenv('.env', override=True)
 TEMP_FOLDER = Path('.')/os.getenv('TEMP_FOLDER')
 
 output_path = Path(TEMP_FOLDER)
@@ -29,6 +29,10 @@ sticker_path.mkdir(parents=True, exist_ok=True)
 archives_path = output_path / 'archives' / 'stickers'
 archives_path.mkdir(parents=True, exist_ok=True)
 
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+)
 
 def get_link(string: str) -> str:
     return re.findall(link_grabber, string)[-1][0]

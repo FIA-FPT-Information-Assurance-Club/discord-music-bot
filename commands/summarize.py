@@ -4,8 +4,8 @@ import os
 from dotenv import load_dotenv
 from discord.ext import commands
 
-load_dotenv('.env')
-CHATBOT_ENABLED = bool(os.getenv('CHATBOT_ENABLED'))
+load_dotenv('.env', override=True)
+CHATBOT_ENABLED = os.getenv('CHATBOT_ENABLED', 'false').lower() == 'true'
 CHATBOT_WHITELIST = os.getenv('CHATBOT_WHITELIST', '[]')
 
 try:
