@@ -351,7 +351,7 @@ class Verify(commands.Cog):
             await self.verify_user(ctx, guild, real_name,student_id, str(ctx.author.id), str(ctx.author))
         except Exception as e:
             await ctx.respond(f"An error occurred while verify users: {e}", ephemeral=True)
-            
+              
             
     @verify.error
     async def verify_error(self, ctx, error):
