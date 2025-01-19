@@ -3,6 +3,11 @@ from discord.ext import commands
 
 import logging
 
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+)
+
 
 class Ping(commands.Cog):
     def __init__(self, bot) -> None:
@@ -18,7 +23,7 @@ class Ping(commands.Cog):
     )
     async def ping(self, ctx: discord.ApplicationContext) -> None:
         latency = round(self.bot.latency*1000, 2)
-        await ctx.respond(f'あわあわあわわわ ! {latency}ms')
+        await ctx.respond(f'Ping ping cái gì, t có súng đây nè :gun:! {latency}ms')
         logging.info(f'Pinged latency: {latency}ms.')
 
 

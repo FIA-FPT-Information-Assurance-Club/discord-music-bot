@@ -1,8 +1,7 @@
 import httpx
-from bs4 import BeautifulSoup
-
 import discord
 
+from bs4 import BeautifulSoup
 
 class Danbooru:
     def __init__(self):

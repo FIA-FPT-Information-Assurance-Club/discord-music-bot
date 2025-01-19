@@ -1,6 +1,7 @@
+import discord
+
 from typing import List, Optional, Callable, Awaitable, Any, Literal, Tuple, NewType, Dict
 from typing_extensions import TypedDict
-import discord
 
 
 class BaseTrackInfo(TypedDict):

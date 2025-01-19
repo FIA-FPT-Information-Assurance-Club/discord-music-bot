@@ -1,23 +1,34 @@
 import asyncio
 import logging
 import random
+import discord
+import os
+
+from dotenv import load_dotenv
 from datetime import datetime, timedelta
 from typing import Optional, Callable, List, Literal
 from deemix.types.Track import Track
 from copy import deepcopy
-
-import discord
 from librespot.audio import AbsChunkedInputStream
 from deezer.errors import DataException
-
 from bot.vocal.queue_view import QueueView
 from bot.vocal.control_view import controlView
 from bot.vocal.types import QueueItem, TrackInfo, LoopMode, SimplifiedTrackInfo
-from config import AUTO_LEAVE_DURATION, DEFAULT_AUDIO_VOLUME, DEEZER_ENABLED, SPOTIFY_ENABLED
 from bot.vocal.deezer import DeezerChunkedInputStream
 from deemix.errors import GenerationError
-
 from typing import TYPE_CHECKING
+
+load_dotenv('.env', override=True)
+AUTO_LEAVE_DURATION = int(os.getenv('AUTO_LEAVE_DURATION'))
+DEFAULT_AUDIO_VOLUME = int(os.getenv('DEFAULT_AUDIO_VOLUME'))
+DEEZER_ENABLED = os.getenv('DEEZER_ENABLED', 'false').lower() == 'true'
+SPOTIFY_ENABLED = os.getenv('SPOTIFY_ENABLED', 'false').lower() == 'true'
+
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+)
+
 
 if TYPE_CHECKING:
     from bot.vocal.session_manager import SessionManager

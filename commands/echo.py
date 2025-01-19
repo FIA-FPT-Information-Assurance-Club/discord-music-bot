@@ -1,8 +1,13 @@
 from discord.ext import commands
-import discord
 
+import discord
 import logging
 
+
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+)
 
 class Echo(commands.Cog):
     def __init__(self, bot) -> None:
@@ -23,13 +28,9 @@ class Echo(commands.Cog):
     ) -> None:
         logging.info(f'{ctx.author.name} used /echo.')
         if not ctx.guild.me:
-            # If using the bot as an user application
-            # (Bot not in the server)
             await ctx.respond(content=message)
         else:
             await ctx.send(content=message)
-            await ctx.respond('Xong !', ephemeral=True)
-
 
 def setup(bot):
     bot.add_cog(Echo(bot))

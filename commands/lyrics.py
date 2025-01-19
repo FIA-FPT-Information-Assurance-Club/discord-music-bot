@@ -1,14 +1,10 @@
 import logging
-from typing import Optional
-from config import (
-    SPOTIFY_ENABLED, 
-    DEFAULT_EMBED_COLOR, 
-    CHATBOT_ENABLED,
-)
-
 import discord
-from discord.ext import commands
+import os
 
+from dotenv import load_dotenv
+from typing import Optional
+from discord.ext import commands
 from bot.lyrics import BotLyrics
 from bot.vocal.session_manager import session_manager
 from bot.utils import get_dominant_rgb_from_url, split_into_chunks
@@ -16,7 +12,16 @@ from commands.vocal.play import Play
 
 
 logger = logging.getLogger(__name__)
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+)
 
+
+load_dotenv('.env', override=True)
+SPOTIFY_ENABLED = os.getenv('SPOTIFY_ENABLED', 'false').lower() == 'true'
+DEFAULT_EMBED_COLOR = tuple(os.getenv('DEFAULT_EMBED_COLOR'))
+CHATBOT_ENABLED = os.getenv('CHATBOT_ENABLED', 'false').lower() == 'true'
 
 class Lyrics(commands.Cog):
     def __init__(self, bot) -> None:
@@ -24,7 +29,7 @@ class Lyrics(commands.Cog):
 
     @commands.slash_command(
         name="lyrics",
-        description='Lấy lời bài hát bất kỳ, hoặc là bài hát đang phát hiện tại.'
+        description='Lấy lời bài hát bất kỳ, hoặc bài hát đang phát hiện tại.'
     )
     async def lyrics(
         self,

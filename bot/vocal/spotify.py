@@ -2,13 +2,13 @@ import asyncio
 import logging
 import os
 import re
+import discord
+import spotipy
+
 from datetime import datetime
 from pathlib import Path
 from typing import Optional, List, Literal
 from concurrent.futures import ThreadPoolExecutor
-
-import discord
-import spotipy
 from dotenv import load_dotenv
 from librespot.audio.decoders import AudioQuality, VorbisOnlyAudioQuality
 from librespot.core import Session
@@ -16,7 +16,6 @@ from librespot.metadata import TrackId
 from librespot.zeroconf import ZeroconfServer
 from librespot.audio import AbsChunkedInputStream
 from spotipy.oauth2 import SpotifyClientCredentials
-
 from bot.search import is_url, token_sort_ratio
 from bot.utils import get_dominant_rgb_from_url
 from bot.vocal.custom import generate_info_embed
@@ -30,16 +29,25 @@ from bot.vocal.types import (
     SpotifyPlaylistAPI,
     SpotifyArtistAPI
 )
-from config import SPOTIFY_TOP_COUNTRY, SPOTIFY_ENABLED, SPOTIFY_API_ENABLED
+
 
 
 logging.getLogger('zeroconf').setLevel(logging.ERROR)
+load_dotenv('.env', override=True)
+
+SPOTIFY_TOP_COUNTRY = os.getenv('SPOTIFY_TOP_COUNTRY')
+SPOTIFY_ENABLED = os.getenv('SPOTIFY_ENABLED', 'false').lower() == 'true'
+SPOTIFY_API_ENABLED = os.getenv('SPOTIFY_API_ENABLED', 'false').lower() == 'true'
+
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+)
 
 
 # Spotify Application credentials
 class SpotifyConfig:
     def __init__(self) -> None:
-        load_dotenv()
         self.client_id = os.getenv('SPOTIPY_CLIENT_ID')
         self.client_secret = os.getenv('SPOTIPY_CLIENT_SECRET')
         self.redirect_uri = os.getenv('SPOTIPY_REDIRECT_URI')

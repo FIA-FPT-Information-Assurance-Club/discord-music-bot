@@ -1,12 +1,31 @@
 import discord
 import logging
+import os
+import json
+    
+from json_repair import repair_json
+from dotenv import load_dotenv
 from discord.ext import commands
-from config import (
-    LANGUAGES,
-    CHATBOT_WHITELIST,
-    CHATBOT_ENABLED
-)
 from google.generativeai.types.generation_types import BlockedPromptException
+
+#DEFINE VARIABLE
+load_dotenv('.env', override=True)
+LANGUAGES = os.getenv('LANGUAGES')
+CHATBOT_ENABLED = os.getenv('CHATBOT_ENABLED', 'false').lower() == 'true'
+CHATBOT_WHITELIST = repair_json(os.getenv('CHATBOT_WHITELIST', '[]'))
+
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+)
+
+try:
+    CHATBOT_WHITELIST = json.loads(CHATBOT_WHITELIST)
+    if not isinstance(CHATBOT_WHITELIST, list):
+        raise ValueError("CHATBOT_WHITELIST is not a valid list.")
+except json.JSONDecodeError:
+    CHATBOT_WHITELIST = []
+    logging.error("Error decoding CHATBOT_WHITELIST, defaulting to an empty list.")
 
 if CHATBOT_ENABLED:
     from bot.chatbot.gemini import Gembot, active_chats

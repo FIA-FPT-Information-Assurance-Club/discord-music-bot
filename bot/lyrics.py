@@ -2,19 +2,26 @@ import requests
 import asyncio
 import urllib.parse
 import logging
-from typing import Optional
 import os
+
+from typing import Optional
 from dotenv import load_dotenv
 
-from config import CHATBOT_ENABLED, GEMINI_UTILS_MODEL
+logger = logging.getLogger(__name__)
+
+load_dotenv('.env', override=True)
+MUSIXMATCH_TOKEN = os.getenv('MUSIXMATCH_TOKEN')
+GEMINI_UTILS_MODEL = os.getenv('GEMINI_UTILS_MODEL')
+CHATBOT_ENABLED = os.getenv('CHATBOT_ENABLED', "false").strip().lower() == "true"
+
 if CHATBOT_ENABLED:
     from bot.chatbot.gemini import Gembot
     import google.generativeai as genai
 
-logger = logging.getLogger(__name__)
-load_dotenv()
-MUSIXMATCH_TOKEN = os.getenv('MUSIXMATCH_TOKEN')
-
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+)
 
 class BotLyrics:
 

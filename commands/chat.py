@@ -1,20 +1,15 @@
 import logging
-import re
-from typing import Dict, Optional
-
 import discord
+import re
+import os
+
+from dotenv import load_dotenv
+from typing import Dict, Optional
 from discord.ext import commands
+from google.generativeai.types.generation_types import BlockedPromptException, StopCandidateException
 
-from config import (
-    CHATBOT_WHITELIST,
-    CHATBOT_ENABLED
-)
-import google.generativeai as genai
-
-from google.generativeai.types.generation_types import (
-    BlockedPromptException,
-    StopCandidateException
-)
+load_dotenv('.env', override=True)
+CHATBOT_ENABLED = os.getenv('CHATBOT_ENABLED', "false").strip().lower() == "true"
 
 ADMIN_USER_ID = 295188325684346880
 TARGET_SERVER_ID = 1216978943920443452
@@ -37,6 +32,11 @@ PATTERNS = {
     "network": re.compile(r"^-(?P<username>\w+)_<Day_(?P<day>\d+)_Network_Record>$"),
     "code": re.compile(r"^-(?P<username>\w+)_<Day_(?P<day>\d+)_Code_Record>$")
 }
+
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+)
 
 async def handle_record_request(
     bot: commands.Bot, 

@@ -1,13 +1,16 @@
+import discord
+import os
+
+from dotenv import load_dotenv
 from typing import List, Union
 from datetime import datetime
-
-import discord
 from discord.ui import View
-
 from bot.vocal.custom import get_cover_data_from_hash
 from bot.utils import get_dominant_rgb_from_url, split_into_chunks
 from bot.vocal.types import QueueItem
-from config import DEFAULT_EMBED_COLOR
+
+load_dotenv('.env', override=True)
+DEFAULT_EMBED_COLOR = tuple(os.getenv('DEFAULT_EMBED_COLOR'))
 
 
 class QueueView(View):

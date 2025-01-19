@@ -1,8 +1,20 @@
 import discord
+import json
+import os
+from dotenv import load_dotenv
 from discord.ext import commands
 
-from config import CHATBOT_ENABLED, CHATBOT_WHITELIST
+load_dotenv('.env', override=True)
+CHATBOT_ENABLED = os.getenv('CHATBOT_ENABLED', 'false').lower() == 'true'
+CHATBOT_WHITELIST = os.getenv('CHATBOT_WHITELIST', '[]')
 
+try:
+    CHATBOT_WHITELIST = json.loads(CHATBOT_WHITELIST)
+    if not isinstance(CHATBOT_WHITELIST, list):
+        raise ValueError("CHATBOT_WHITELIST is not a valid list.")
+except json.JSONDecodeError:
+    CHATBOT_WHITELIST = []
+    print("Error decoding CHATBOT_WHITELIST, defaulting to an empty list.")
 
 if CHATBOT_ENABLED:
     from bot.summaries import Summaries
@@ -38,8 +50,6 @@ if CHATBOT_ENABLED:
                 await ctx.edit(
                     content='Có lỗi xảy ra thì tạo bản tóm tắt!')
 
-            # Prepare the embed
-            # ...
             await ctx.respond(text)
 else:
     class Summarize(commands.Cog):

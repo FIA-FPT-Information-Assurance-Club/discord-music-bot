@@ -1,15 +1,36 @@
 import json
 import logging
 import os
-from pathlib import Path
-from typing import Dict, Optional, Literal
-
 import aiohttp
 
+from json_repair import repair_json
+from dotenv import load_dotenv
+from pathlib import Path
+from typing import Optional, Literal
 from bot.vocal.types import OnseiAPIResponse, TrackUrlMapping, TrackTitle, MediaStreamUrl
-from config import ONSEI_BLACKLIST, ONSEI_WHITELIST
 
 logger = logging.getLogger(__name__)
+load_dotenv('.env', override=True)
+ONSEI_BLACKLIST = repair_json(os.getenv('ONSEI_BLACKLIST', '[]'))
+ONSEI_WHITELIST = repair_json(os.getenv('ONSEI_WHITELIST', '[]'))
+
+def validate_json_list(env_var, default_value=[]):
+    try:
+        parsed_value = json.loads(env_var)
+        if not isinstance(parsed_value, list):
+            raise ValueError(f"{env_var} is not a valid list.")
+        return parsed_value
+    except (json.JSONDecodeError, ValueError) as e:
+        logging.error(f"Error decoding {env_var}, defaulting to an empty list. Error: {e}")
+        return default_value
+
+ONSEI_BLACKLIST = validate_json_list(ONSEI_BLACKLIST)
+ONSEI_WHITELIST = validate_json_list(ONSEI_WHITELIST)
+
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+)
 
 
 class Onsei:

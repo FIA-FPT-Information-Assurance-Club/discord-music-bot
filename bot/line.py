@@ -1,32 +1,38 @@
-from aiohttp import ClientSession
-from pathlib import Path
-from PIL import Image
+
 import asyncio
 import shutil
 import logging
 import re
 import os
-
-from discord import ApplicationContext
-from bs4 import BeautifulSoup
 import imageio.v3
 
+from dotenv import load_dotenv
+from typing import Union
+from discord import ApplicationContext
+from bs4 import BeautifulSoup
+from aiohttp import ClientSession
+from pathlib import Path
+from PIL import Image
 from bot.exceptions import IncorrectURL
 from bot.search import link_grabber
 from bot.utils import sanitize_filename
-from config import TEMP_FOLDER
 
 logger = logging.getLogger(__name__)
 
-# Setup the folders
-output_path = Path(TEMP_FOLDER)
+load_dotenv('.env', override=True)
+TEMP_FOLDER = Path('.')/os.getenv('TEMP_FOLDER')
 
+output_path = Path(TEMP_FOLDER)
 sticker_path = output_path / 'stickers'
 sticker_path.mkdir(parents=True, exist_ok=True)
 
 archives_path = output_path / 'archives' / 'stickers'
 archives_path.mkdir(parents=True, exist_ok=True)
 
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+)
 
 def get_link(string: str) -> str:
     return re.findall(link_grabber, string)[-1][0]
@@ -67,7 +73,7 @@ async def fetch_sticker_image(
 
 async def get_stickerpack(
     link: str,
-    ctx: ApplicationContext | None = None
+    ctx: Union[ApplicationContext, None] = None 
 ) -> str:
     try:
         async with ClientSession() as session:

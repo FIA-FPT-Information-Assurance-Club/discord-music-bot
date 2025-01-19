@@ -1,8 +1,7 @@
 import discord
-from discord.ext import commands
-
 import os
 
+from discord.ext import commands
 from bot.line import get_stickerpack
 from bot.exceptions import IncorrectURL
 
@@ -43,7 +42,6 @@ class Stickers(commands.Cog):
             file=discord.File(zip_file),
             content="Bộ nhãn dán mà bạn yêu cầu đây nha~"
         )
-        # Clean up the file after sending
         os.remove(zip_file)
 
 
