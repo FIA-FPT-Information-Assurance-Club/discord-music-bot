@@ -10,11 +10,10 @@ from deezer.errors import DataException
 from botocore.exceptions import BotoCoreError, ClientError
 from bot.utils import cleanup_cache, tag_flac_file, get_cache_path
 
-load_dotenv('.env')
+load_dotenv('.env', override=True)
 DEEZER_ENABLED = bool(os.getenv('DEEZER_ENABLED'))
 UPLOAD_TO_S3_ENABLED = bool(os.getenv('UPLOAD_TO_S3_ENABLED'))
-
-end_url = os.getenv(ENDPOINT_URL)
+end_url = os.getenv(os.getenv('ENDPOINT_URL'))
 
 r2_client = boto3.client(
     's3',

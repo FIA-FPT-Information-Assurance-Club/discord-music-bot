@@ -111,7 +111,7 @@ class CTFTimes(commands.Cog):
             logging.error(f"Error decoding JSON response: {e}")
             await ctx.respond("An error occurred while decoding the JSON response.", ephemeral=True)
             
-        
+    
     @commands.slash_command(
         name="ctf-upcoming",
         description="Get upcoming CTF events",
@@ -134,9 +134,70 @@ class CTFTimes(commands.Cog):
         """
         guild = ctx.guild
         await self.ctf_information(ctx, guild, event_id)
+    
+    
+    # @commands.slash_command(
+    #     name='ctf-contest-room',
+    #     description='Create channel with topic for CTFd contest',
+    # )
+    # @commands.has_permissions(manage_channels=True)
+    # async def ctfcontestroom(self, ctx: discord.ApplicationContext, event_id: str, api_key: str):
+    #     """
+    #     Command to create a channel with a topic for a CTFd contest.
+    #     """
+    #     try:
+    #         guild = ctx.guild
+    #         response = requests.get(
+    #             f"https://ctftime.org/api/v1/events/{event_id}/", headers=HEADERS
+    #         )
+    #         response.raise_for_status()
+    #         info = response.json()
+    #         title = info["title"]
+    #         category = discord.utils.get(guild.categories, name="CTFd 🚩")
+    #         if category is None:
+    #             category = await guild.create_category("CTFd 🚩")
+    #         await guild.create_text_channel(title, category=category)
+            
+    #         # for category in categories:
+    #         #     await guild.send(category, category=category)
+    #         await ctx.respond(f"Created a channel for the CTFd contest: {title}", ephemeral=True)
+    #     except requests.exceptions.RequestException as e:
+    #         logging.error(f"Error fetching CTF information: {e}")
+    #         await ctx.respond("An error occurred while fetching the CTF information.", ephemeral=True)
+    #     except ValueError as e:
+    #         logging.error(f"Error decoding JSON response: {e}")
+    #         await ctx.respond("An error occurred while decoding the JSON response.", ephemeral=True)    
+    
+    @commands.slash_command(
+        name='ctf-room',
+        description='Create channel with topic for CTFd contest',
+    )
+    @commands.bot_has_permissions(manage_channels=True, manage_roles=True)
+    @commands.has_role('Admin')
+    async def create(self, ctx, ctf_name):
+        try:
+            
+        except Exception as e:
+            await ctx.send(e)
+            return
+        # category = discord.utils.get(ctx.guild.categories, name=ctf_name)
+        # if category is None:
+        #     await ctx.guild.create_category(name=ctf_name)
+        #     category = discord.utils.get(ctx.guild.categories, name=ctf_name)
+        #     await category.set_permissions(ctx.guild.me, read_messages=True, send_messages=True, speak=True)
+
+        # if ctf_name[0] == '-':
+        #     ctf_name = ctf_name[1:]
+
+        # while '--' in ctf_name:
+        #     ctf_name = ctf_name.replace('--', '-')
+
+        # role = await ctx.guild.create_role(name=ctf_name, mentionable=True)
+        # channel = await ctx.guild.create_text_channel(name="Main", category=category)
+        # await channel.set_permissions(ctx.guild.default_role, read_messages=False)
+        # await channel.set_permissions(role, read_messages=True)
+        # await ctx.message.add_reaction("✅")
         
-
-
 def setup(bot):
     bot.add_cog(CTFTimes(bot))
     
