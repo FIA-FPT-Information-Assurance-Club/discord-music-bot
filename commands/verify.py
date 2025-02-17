@@ -177,7 +177,7 @@ class Verify(commands.Cog):
                     error_message = f"User with student ID {student_id} already exists in the database."
                     logging.error(error_message)
                     if ctx:
-                        await ctx.respond(error_message, emphemeral=True)
+                        await ctx.respond(error_message, ephemeral=True)
                     return
 
                 # Insert new user
@@ -191,13 +191,13 @@ class Verify(commands.Cog):
             success_message = f"User '{real_name}' with student ID {student_id} has been successfully added."
             logging.info(success_message)
             if ctx:
-                await ctx.respond(success_message, emphemeral=True)
+                await ctx.respond(success_message, ephemeral=True)
 
         except Exception as e:
             logging.error(f"Error while creating user in the database: {e}")
             self.db.rollback()
             if ctx:
-                await ctx.respond("An error occurred while creating the user. Please try again later.", emphemeral=True)
+                await ctx.respond("An error occurred while creating the user. Please try again later.", ephemeral=True)
 
 
     async def verify_user(
